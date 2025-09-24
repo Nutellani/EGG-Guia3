@@ -48,7 +48,7 @@ public class Ej3 {
 
             ArrayList<Integer> notas = new ArrayList<>();
             for (int i = 0; i < notes; i++) {
-                System.out.print("Ingrese la nota " + i + " del alumno " + alumno.getName() + ": ");
+                System.out.print("Ingrese la nota " + (i + 1) + " del alumno " + alumno.getName() + ": ");
                 notas.add(sc.nextInt());
             }
             System.out.println("");
@@ -73,7 +73,7 @@ public class Ej3 {
 
             for (Alumno elemento : alumnos) {
                 if (elemento.getName().equalsIgnoreCase(student)) {
-                    System.out.print("Ingresando en las notas del señorito/a " + elemento.getName() + " >:) ");
+                    System.out.print("Ingresando en las notas del señorito/a " + elemento.getName() + " >:) su promedio es de: ");
                     System.out.println(elemento.notaFinal());
                 }
             }
