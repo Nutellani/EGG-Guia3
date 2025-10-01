@@ -20,11 +20,39 @@ en pantalla.
 package ej4;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Ej4 {
 
-    static Scanner sc = new Scanner(System.in).useDelimiter("\n");
+    private static Scanner sc = new Scanner(System.in).useDelimiter("\n");
+
+    private static Comparator<Pelicula> compareDuration = new Comparator<Pelicula>() {
+
+        @Override
+        public int compare(Pelicula p1, Pelicula p2) {
+
+            return p1.getDuracion().compareTo(p2.getDuracion());
+        }
+    }; // aca PIDE terminar el } con un ; SOLO xq asi funciona Comparator
+
+    private static Comparator<Pelicula> compareTitle = new Comparator<Pelicula>() {
+
+        @Override
+        public int compare(Pelicula p1, Pelicula p2) {
+
+            return p1.getTitulo().compareTo(p2.getTitulo());
+        }
+    }; // aca PIDE terminar el } con un ; SOLO xq asi funciona Comparator
+
+    private static Comparator<Pelicula> compareDirector = new Comparator<Pelicula>() {
+
+        @Override
+        public int compare(Pelicula p1, Pelicula p2) {
+
+            return p1.getDirector().compareTo(p2.getDirector());
+        }
+    }; // aca PIDE terminar el } con un ; SOLO xq asi funciona Comparator
 
     public static void main(String[] args) {
 
@@ -32,6 +60,9 @@ public class Ej4 {
 
         addPelis(cartelera);
         showPelis(cartelera);
+        sortPelis(cartelera, compareDuration, "Duracion: "); //
+        sortPelis(cartelera, compareTitle, "Titulo: "); //
+        sortPelis(cartelera, compareDirector, "Director: "); //
 
     }
 
@@ -52,28 +83,41 @@ public class Ej4 {
             director = askDirector();
             duracion = askDuration();
             cartelera.add(new Pelicula(name, director, duracion));
+            System.out.println("");
 
         } while (!name.equals(""));
 
     }
 
     private static String askName() {
-        System.out.print("Ingrese Nombre de la Peli de CUEVANA Lol");
+        System.out.print("Ingrese Nombre de la Peli de CUEVANA Lol: ");
         return sc.next();
     }
 
     private static String askDirector() {
-        System.out.print("Ingrese Director de la Peli en PelisPLUS");
+        System.out.print("Ingrese Director de la Peli en PelisPLUS: ");
         return sc.next();
     }
 
     private static Double askDuration() {
-        System.out.print("Ingrese Director de la Peli en PelisPLUS");
+        System.out.print("Ingrese Duracion de la Peli en PelisPLUS: ");
         return sc.nextDouble();
     }
 
-    private static void showPelis(ArrayList<Pelicula> cartelera){
-        
+    private static void showPelis(ArrayList<Pelicula> cartelera) {
+
+        for (int i = 0; i < cartelera.size(); i++) {
+            Pelicula pelicula = cartelera.get(i);
+            System.out.println("Título de la película número " + (i + 1) + ": " + pelicula.getTitulo());
+            System.out.println("Director: " + pelicula.getDirector());
+            System.out.println("Dureishon: " + pelicula.getDuracion() + " hs\n");
+        }
     }
-    
+
+    private static void sortPelis(ArrayList<Pelicula> cartelera, Comparator<Pelicula> comparator, String mensaje) {
+        cartelera.sort(comparator);
+        System.out.println("Pelis Ordenadas segun " + mensaje + "\n");
+        showPelis(cartelera);
+    }
+
 }
